@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">Nexus</string>
+
+    <!-- Navigation -->
+    <string name="nav_feed">Feed</string>
+    <string name="nav_map">Map</string>
+    <string name="nav_chat">Chat</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- Intent Types -->
+    <string name="intent_looking_for">Looking For</string>
+    <string name="intent_happening">Happening</string>
+    <string name="intent_asking">Asking</string>
+    <string name="intent_offering">Offering</string>
+
+    <!-- Common Actions -->
+    <string name="action_post">Post</string>
+    <string name="action_send">Send</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_reply">Reply</string>
+
+    <!-- Feed -->
+    <string name="feed_title">Nexus Feed</string>
+    <string name="feed_empty">No posts yet. Be the first to post!</string>
+    <string name="feed_pull_to_refresh">Pull to refresh</string>
+    <string name="feed_compose">Compose post</string>
+    <string name="feed_filter_all">All</string>
+    <string name="feed_filter_looking">Looking For</string>
+    <string name="feed_filter_happening">Happening</string>
+    <string name="feed_filter_asking">Asking</string>
+    <string name="feed_filter_offering">Offering</string>
+
+    <!-- Post Detail -->
+    <string name="post_detail_title">Post Details</string>
+    <string name="post_detail_interested">Interested</string>
+    <string name="post_detail_comments">Comments</string>
+    <string name="post_detail_reactions">Reactions</string>
+    <string name="post_detail_im_in">I\'m In</string>
+    <string name="post_detail_marked">Marked as Interested</string>
+    <string name="post_detail_comments_coming">Comments feature coming soon</string>
+
+    <!-- Auth -->
+    <string name="auth_login">Login</string>
+    <string name="auth_signup">Sign Up</string>
+    <string name="auth_google_signin">Sign in with Google</string>
+    <string name="auth_email">Email</string>
+    <string name="auth_password">Password</string>
+    <string name="auth_college_name">College Name</string>
+
+    <!-- Errors -->
+    <string name="error_generic">Something went wrong. Please try again.</string>
+    <string name="error_network">Network error. Please check your connection.</string>
+    <string name="error_invalid_email">Invalid email address</string>
+    <string name="error_weak_password">Password is too weak</string>
+
+</resources>

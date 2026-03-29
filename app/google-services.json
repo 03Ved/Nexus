@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1029826688213",
+    "project_id": "nexus-campus-caf90",
+    "storage_bucket": "nexus-campus-caf90.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029826688213:android:cdd4689edd810879e7de5c",
+        "android_client_info": {
+          "package_name": "com.example.nexus"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_qeNUWvTGyFaz0fCRbQMOTBerOnf3A98"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
