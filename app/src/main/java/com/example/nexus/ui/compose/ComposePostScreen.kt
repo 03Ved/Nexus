@@ -92,7 +92,6 @@ fun ComposePostScreen(
         contract = ActivityResultContracts.GetContent()
     ) { uri ->
         uri?.let {
-            // Copy to app storage for persistence
             val inputStream = context.contentResolver.openInputStream(it)
             val fileName = "post_image_${System.currentTimeMillis()}.jpg"
             val file = java.io.File(context.filesDir, fileName)

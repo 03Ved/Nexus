@@ -3,6 +3,7 @@ package com.example.nexus
 import android.app.Application
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
+import com.example.nexus.service.SyncWorker
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
@@ -19,7 +20,7 @@ class NexusApp : Application(), Configuration.Provider {
 
     override fun onCreate() {
         super.onCreate()
-        // Background sync temporarily disabled
-        // Will be re-enabled after core app is working
+        // Schedule periodic background sync every 15 minutes
+        SyncWorker.schedulePeriodicSync(this)
     }
 }

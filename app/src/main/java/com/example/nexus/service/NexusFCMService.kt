@@ -37,19 +37,56 @@ class NexusFCMService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
-        
+
         Log.d(TAG, "Message received from: ${remoteMessage.from}")
-        
+
         // Handle data payload
         if (remoteMessage.data.isNotEmpty()) {
             Log.d(TAG, "Message data: ${remoteMessage.data}")
             handleDataMessage(remoteMessage.data)
         }
 
-        // Handle notification payload (if sent alongside data)
-        remoteMessage.notification?.let {
-            Log.d(TAG, "Message notification title: ${it.title}")
-            Log.d(TAG, "Message notification body: ${it.body}")
+        // Handle notification payload — show it manually
+        remoteMessage.notification?.let { notification ->
+            Log.d(TAG, "Message notification title: ${notification.title}")
+            Log.d(TAG, "Message notification body: ${notification.body}")
+
+            // Show the notification manually so it appears even in foreground
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                createNotificationChannel(CHANNEL_NEW_INTEREST)
+            }
+
+            val intent = Intent(this, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+            val pendingIntent = PendingIntent.getActivity(
+                this, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT or
+                        PendingIntent.FLAG_IMMUTABLE
+            )
+
+            val notificationBuilder = NotificationCompat.Builder(
+                this, CHANNEL_NEW_INTEREST
+            )
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle(notification.title)
+                .setContentText(notification.body)
+                .setStyle(
+                    NotificationCompat.BigTextStyle()
+                        .bigText(notification.body)
+                )
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+
+            val notificationManager = getSystemService(
+                Context.NOTIFICATION_SERVICE
+            ) as NotificationManager
+            notificationManager.notify(
+                System.currentTimeMillis().toInt(),
+                notificationBuilder.build()
+            )
         }
     }
 
@@ -183,61 +220,40 @@ class NexusFCMService : FirebaseMessagingService() {
         deepLinkData: Map<String, String>
     ) {
         try {
-            // Create notification channel for Android 8+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 createNotificationChannel(channelId)
             }
 
-            // Build notification based on type
-            val notificationBuilder = when (notificationType) {
-                "new_interest" -> NotificationHelper.buildNewInterestNotification(
-                    context = this,
-                    title = title,
-                    body = body,
-                    postId = deepLinkData["postId"] ?: "",
-                    userName = deepLinkData["userName"] ?: "Someone"
-                )
-                "new_message" -> NotificationHelper.buildNewMessageNotification(
-                    context = this,
-                    title = title,
-                    body = body,
-                    chatId = deepLinkData["chatId"] ?: "",
-                    senderId = deepLinkData["senderId"] ?: "",
-                    senderName = deepLinkData["senderName"] ?: "Unknown"
-                )
-                "poll_closing" -> NotificationHelper.buildPollClosingNotification(
-                    context = this,
-                    title = title,
-                    body = body,
-                    postId = deepLinkData["postId"] ?: "",
-                    pollQuestion = deepLinkData["pollQuestion"] ?: ""
-                )
-                "new_comment" -> NotificationHelper.buildNewCommentNotification(
-                    context = this,
-                    title = title,
-                    body = body,
-                    postId = deepLinkData["postId"] ?: "",
-                    commenterId = deepLinkData["commenterId"] ?: "",
-                    commenterName = deepLinkData["commenterName"] ?: "Someone"
-                )
-                else -> NotificationHelper.buildGenericNotification(
-                    context = this,
-                    title = title,
-                    body = body
-                )
+            val intent = Intent(this, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                deepLinkData.forEach { (key, value) -> putExtra(key, value) }
             }
 
-            // Send notification
-            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val pendingIntent = PendingIntent.getActivity(
+                this, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            )
+
+            val notification = NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setStyle(NotificationCompat.BigTextStyle().bigText(body))
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .build()
+
+            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE)
+                    as NotificationManager
             val notificationId = System.currentTimeMillis().toInt()
-            notificationManager.notify(notificationId, notificationBuilder.build())
-            
+            notificationManager.notify(notificationId, notification)
+
             Log.d(TAG, "Notification shown: $title")
         } catch (e: Exception) {
             Log.e(TAG, "Error showing notification: ${e.message}", e)
         }
     }
-
     /**
      * Create notification channel for Android 8+
      */

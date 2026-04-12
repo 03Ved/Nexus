@@ -44,6 +44,7 @@ import com.example.nexus.ui.theme.NexusTheme
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.ui.input.pointer.pointerInput
+import android.os.Build
 
 /**
  * MainActivity
@@ -58,6 +59,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             NexusTheme {
                 AppContent()
+            }
+        }
+        // Request notification permission for Android 13+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS)
+                != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(
+                    arrayOf(android.Manifest.permission.POST_NOTIFICATIONS),
+                    1001
+                )
             }
         }
     }
