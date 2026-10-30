@@ -26,7 +26,14 @@ Campus announcements, event plans, and requests for collaborators often get scat
 
 ## Screenshots
 
-The project report contains screenshots of the **Feed**, **Post Details**, **Map**, **Chats**, and **Profile** screens. To display them here, add screenshots to `docs/screenshots/` and then replace this note with a Markdown gallery. Avoid uploading private user data in screenshots.
+| Feed | Post Details | Campus Map |
+|:---:|:---:|:---:|
+| <img src="docs/screenshots/Screenshot 2026-10-30 133652.png" width="240" alt="Feed screen"> | <img src="docs/screenshots/Screenshot 2026-10-30 133729.png" width="240" alt="Post details screen"> | <img src="docs/screenshots/Screenshot 2026-10-30 133746.png" width="240" alt="Campus map screen"> |
+
+| Chats | Profile |
+|:---:|:---:|
+| <img src="docs/screenshots/Screenshot 2026-10-30 133801.png" width="240" alt="Chats screen"> | <img src="docs/screenshots/Screenshot 2026-10-30 133815.png" width="240" alt="Profile screen"> |
+
 
 ## Tech stack
 
