@@ -136,15 +136,3 @@ The repository includes basic Android test scaffolding but **does not yet includ
 3. Implement shared media storage and safe image URLs.
 4. Add reliable event-triggered notifications and automated tests.
 5. Document reproducible performance measurements and expand device testing.
-
-## Team and acknowledgment
-
-Created as a **three-person Mobile Application Development academic mini-project** by **Saransh Lulla, Jaee Sakharkar, and Ved Sarode**, under the guidance of **Prof. Pallavi Saindane** at **Vivekanand Education Society's Institute of Technology**.
-
-## Project documentation
-
-For fuller design notes, manual test cases and screenshots, see the accompanying **Nexus MAD Mini Project Report** (add the report to this repository and link it here if you want to make it publicly available).
-
----
-
-*This README documents the current prototype and distinguishes implemented functionality from planned enhancements.*
